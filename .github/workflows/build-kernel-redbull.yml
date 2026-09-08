@@ -364,7 +364,13 @@ jobs:
           
           # Run perl command to modify UTS_VERSION
           perl -pi -e 's{UTS_VERSION="\$\(echo \$UTS_VERSION \$CONFIG_FLAGS \$TIMESTAMP \| cut -b -\$UTS_LEN\)"}{UTS_VERSION="#1 SMP PREEMPT Sat Apr 20 04:20:00 UTC 2025"}' ./scripts/mkcompile_h
-
+       - name: Check KPROBES before build
+         run: |
+          cd "$CONFIG"
+          echo "=== KPROBES BEFORE BUILD ==="
+          grep -n "CONFIG_KPROBES" private/msm-google/redbull-gki_defconfig || true
+          grep -n "CONFIG_MODULES" private/msm-google/redbull-gki_defconfig || true
+          grep -n "CONFIG_HAVE_KPROBES" private/msm-google/redbull-gki_defconfig || true
       - name: Build the Kernel
         run: |
           echo "Changing to configuration directory: $CONFIG..."
