@@ -382,7 +382,8 @@ jobs:
           echo "=== Effective KPROBES/UPROBES/BPF/FTRACE_SYSCALLS in final .config ==="
           grep -nE "KPROBES|UPROBES|CONFIG_BPF|FTRACE_SYSCALLS" "$CFG" || echo "(none found)"
               grep -nE "^(CONFIG_MODULES|CONFIG_HAVE_KPROBES|CONFIG_KPROBES|CONFIG_KPROBE_EVENTS|CONFIG_FTRACE|CONFIG_FTRACE_SYSCALLS)|^# CONFIG_(MODULES|KPROBES|KPROBE_EVENTS|FTRACE|FTRACE_SYSCALLS) is not set" "$CFG"
-                  grep -RniE '^[[:space:]]*(config|CONFIG_KPROBES|# CONFIG_KPROBES)' kernel arch 2>/dev/null | head -100
+              grep -RniE 'KPROBES' out/android-msm-pixel-4.19/private/msm-google --include='Kconfig*' 2>/dev/null | head -100
+              
       - name: Create zip file for result
         run: |
           echo "Changing to configuration directory: $CONFIG..."
