@@ -358,6 +358,18 @@ jobs:
           sed -i 's/check_defconfig//' ./build.config.common
           sed -i 's/check_defconfig//' ./build.config.redbull
           sed -i 's/check_defconfig && //' ./build.config.redbull.no-cfi
+                    cat >> ./build.config.redbull <<'EOF'
+          
+          function update_kprobes_config() {
+            ${KERNEL_DIR}/scripts/config --file ${OUT_DIR}/.config \
+              -e CONFIG_KPROBES \
+              -e CONFIG_KPROBE_EVENTS \
+              -e CONFIG_FTRACE_SYSCALLS
+            (cd ${OUT_DIR} && make ${CC_LD_ARG} O=${OUT_DIR} olddefconfig)
+          }
+          
+          POST_DEFCONFIG_CMDS="update_kprobes_config"
+          EOF
           # Added commit id
           sed -i '$s|echo "\$res"|echo "\-g7b0944645172-@sn00py_z0r0-$GITHUB_SHA_SHORT"|' ./scripts/setlocalversion
           sed -i 's/-stable//' ./scripts/setlocalversion
