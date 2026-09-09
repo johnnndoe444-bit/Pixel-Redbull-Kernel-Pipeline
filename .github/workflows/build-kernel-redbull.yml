@@ -376,7 +376,7 @@ jobs:
           cd "$CONFIG"
           echo "=== Forcing KPROBES configuration ==="
           CFG="out/android-msm-pixel-4.19/private/msm-google/.config"
-          scripts/config --file "$CFG" \
+          private/msm-google/scripts/config --file "$CFG" \
             -e CONFIG_KPROBES \
             -e CONFIG_KPROBE_EVENTS \
             -e CONFIG_FTRACE_SYSCALLS
