@@ -364,6 +364,7 @@ jobs:
 
           function update_kprobes_config() {
             ${KERNEL_DIR}/scripts/config --file ${OUT_DIR}/.config \
+              -d CONFIG_KSU_KPROBES_HOOK \
               -e CONFIG_KPROBES \
               -e CONFIG_KPROBE_EVENTS \
               -e CONFIG_FTRACE_SYSCALLS
