@@ -370,19 +370,7 @@ jobs:
           echo "=== KPROBES BEFORE BUILD ==="
           grep -n "CONFIG_KPROBES" private/msm-google/redbull-gki_defconfig || true
           grep -n "CONFIG_MODULES" private/msm-google/redbull-gki_defconfig || true
-          grep -n "CONFIG_HAVE_KPROBES" private/msm-google/redbull-gki_defconfig || true
-      - name: Force KPROBES configuration
-        run: |
-          cd "$CONFIG"
-          echo "=== Forcing KPROBES configuration ==="
-          CFG="out/android-msm-pixel-4.19/private/msm-google/.config"
-          private/msm-google/scripts/config --file "$CFG" \
-            -e CONFIG_KPROBES \
-            -e CONFIG_KPROBE_EVENTS \
-            -e CONFIG_FTRACE_SYSCALLS
-          echo "=== KPROBES configuration after forcing ==="
-          grep -nE "^(CONFIG_KPROBES|CONFIG_KPROBE_EVENTS|CONFIG_FTRACE_SYSCALLS)=" "$CFG" || true
-          
+          grep -n "CONFIG_HAVE_KPROBES" private/msm-google/redbull-gki_defconfig || true  
       - name: Build the Kernel
         run: |
           echo "Changing to configuration directory: $CONFIG..."
